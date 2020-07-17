@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Главная</title>
+      <meta charset="utf-8" />
+  </head>
+  <body>
+      <div id="app"></div>
+
+      <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+      <script type="text/babel">
+
+      const Router = ReactRouterDOM.BrowserRouter;
+      const Route = ReactRouterDOM.Route;
+      const Switch = ReactRouterDOM.Switch;
+      const NavLink = ReactRouterDOM.NavLink;
+
+      class Home extends React.Component{
+        render(){
+          return <h2>Главная</h2>;
+        }
+      }
+      class About extends React.Component{
+        render(){
+          const id = this.props.match.params.id;
+          return <h2>Id: {id}</h2>
+        }
+      }
+      class NotFound extends React.Component{
+        render(){
+          return <h2>Ресурс не найден</h2>;
+        }
+      }
+      class Author extends React.Component{
+        render(){
+          const id = this.props.match.params.id;
+          return <h2>Автор {id}</h2>
+        }
+      }
+      class Authors extends React.Component{
+        render(){
+          return <div>
+                  <Switch>
+                    <Route exact path="/author" component={Home}/>
+                    <Route path="/author/:id" component={Author}/>
+                  </Switch>
+                 </div>
+        }
+      }
+      ReactDOM.render(
+        <Router>
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route path="/author" component={Authors}/>
+              <Route path="/about/:id" component={About}/>
+              <Route component={NotFound}/>
+            </Switch>
+          </div>
+        </Router>,
+        document.getElementById("app")
+      )
+
+      </script>
+  </body>
+<html>
